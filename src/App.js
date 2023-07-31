@@ -1,4 +1,4 @@
-import {getFirestore, collection, addDoc} from 'firebase/firestore'
+import {getFirestore, collection, addDoc, doc, getDoc} from 'firebase/firestore'
 import './App.css';
 import {app} from './firebase'
 
@@ -28,11 +28,21 @@ function App() {
     })
   }
 
+  const getDocument = async () => {
+    const reference = doc(firestore, 'cities' , 'xj7tKILDhbDqj0rwAukX');
+    const snap = await getDoc(reference);
+    console.log(snap.data())
+  }
+
   return (
     <div className="App">
         <h1>Firebase FireStore</h1>
         <button onClick={writeData}>Write Data in Firestore</button>
         <button onClick={makeSubCollection}>Write collection Data inside collection</button>
+
+        <button onClick={getDocument}>Getting data from document</button>
+        
+        
     </div>
   );
 }
