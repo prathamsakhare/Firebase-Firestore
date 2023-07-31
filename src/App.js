@@ -1,4 +1,4 @@
-import {getFirestore, collection, addDoc, doc, getDoc} from 'firebase/firestore'
+import {getFirestore, collection, addDoc, doc, getDoc, getDocs, query, where} from 'firebase/firestore'
 import './App.css';
 import {app} from './firebase'
 
@@ -34,6 +34,13 @@ function App() {
     console.log(snap.data())
   }
 
+
+  const getDocsByQuery = async () => {
+    const collectionRef = collection(firestore, 'users');
+    const q = query(collectionRef, where('isMale', '==', true));
+    const snapshots = await getDocs(q)
+    snapshots?.forEach((snapshot) => console.log(snapshot.data()))
+  }
   return (
     <div className="App">
         <h1>Firebase FireStore</h1>
@@ -42,6 +49,7 @@ function App() {
 
         <button onClick={getDocument}>Getting data from document</button>
         
+        <button onClick={getDocsByQuery}>Getting data from document using query</button>
         
     </div>
   );
