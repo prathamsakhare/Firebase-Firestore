@@ -1,4 +1,4 @@
-import {getFirestore, collection, addDoc, doc, getDoc, getDocs, query, where} from 'firebase/firestore'
+import {getFirestore, collection, addDoc, doc, getDoc, getDocs, query, where, updateDoc} from 'firebase/firestore'
 import './App.css';
 import {app} from './firebase'
 
@@ -41,6 +41,14 @@ function App() {
     const snapshots = await getDocs(q)
     snapshots?.forEach((snapshot) => console.log(snapshot.data()))
   }
+
+  const updateDocument = async () => {
+    const docRef = doc(firestore, 'cities', 'xj7tKILDhbDqj0rwAukX');
+    await updateDoc(docRef, {
+      name : 'New Delhi'
+    })
+  }
+
   return (
     <div className="App">
         <h1>Firebase FireStore</h1>
@@ -50,6 +58,8 @@ function App() {
         <button onClick={getDocument}>Getting data from document</button>
         
         <button onClick={getDocsByQuery}>Getting data from document using query</button>
+
+        <button onClick={updateDocument}>Update The Document</button>
         
     </div>
   );
